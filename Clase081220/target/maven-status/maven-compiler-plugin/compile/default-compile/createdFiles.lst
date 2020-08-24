@@ -1,9 +1,12 @@
 com\unab\edu\clase081220\welcomeToJava$1.class
 com\unab\edu\clase081220\Operacion$1.class
+com\unab\edu\Entidades\Persona.class
 com\unab\edu\clase081220\Operacion$2.class
 com\unab\edu\clase081220\welcomeToJava.class
 com\unab\edu\operacionBd\crudPersona.class
 com\unab\edu\clase081220\Operacion.class
+com\unab\edu\conexionmysql\ConexionBD.class
+com\unab\edu\operacionBd\crudPersona$2.class
 com\unab\edu\clase081220\welcomeToJava$2.class
-.netbeans_automatic_build
+com\unab\edu\DAO\ClsPersona.class
 com\unab\edu\operacionBd\crudPersona$1.class

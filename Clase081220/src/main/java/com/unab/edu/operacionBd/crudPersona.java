@@ -5,8 +5,12 @@
  */
 package com.unab.edu.operacionBd;
 
+import com.unab.edu.DAO.ClsPersona;
+import com.unab.edu.Entidades.Persona;
 import com.unab.edu.conexionmysql.ConexionBD;
 import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +23,24 @@ public class crudPersona extends javax.swing.JFrame {
      */
     public crudPersona() {
         initComponents();
+        MostrarTablaPersona();
+    }
+
+    void MostrarTablaPersona() {
+        String TITULOS[] = {"ID", "NOMBRE", "APELLIDO", "EDAD", "SEXO"};
+        DefaultTableModel ModeloTabla = new DefaultTableModel(null, TITULOS);
+        ClsPersona clasePersona = new ClsPersona();
+        ArrayList<Persona> Personas = clasePersona.MostrarPersona();
+        String filas[] = new String[5];
+        for (var IterarDatosPersona : Personas) {
+            filas[0] = String.valueOf(IterarDatosPersona.getIdPersona());
+            filas[1] = IterarDatosPersona.getNombre();
+            filas[2] = IterarDatosPersona.getApellido();
+            filas[3] = String.valueOf(IterarDatosPersona.getEdad());
+            filas[4] = IterarDatosPersona.getSexo();
+            ModeloTabla.addRow(filas);
+        }
+        tb_Persona.setModel(ModeloTabla);
     }
 
     /**
@@ -48,15 +70,30 @@ public class crudPersona extends javax.swing.JFrame {
         btnProbar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tb_Persona = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ID");
 
@@ -139,7 +176,7 @@ public class crudPersona extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Operaciones de CRUD", jPanel1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tb_Persona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -150,7 +187,7 @@ public class crudPersona extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tb_Persona);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,15 +195,15 @@ public class crudPersona extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
 
         jTabbedPane1.addTab("Mostrar Datos", jPanel2);
@@ -177,7 +214,7 @@ public class crudPersona extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,9 +229,40 @@ public class crudPersona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProbarActionPerformed
-    ConexionBD claseConectar = new ConexionBD();
+        ConexionBD claseConectar = new ConexionBD();
         Connection conectar = claseConectar.retornarConexion();
     }//GEN-LAST:event_btnProbarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        ClsPersona personas = new ClsPersona();
+        Persona persona = new Persona();
+        persona.setNombre(txtNombre.getText());
+        persona.setApellido(txtApellidos.getText());
+        persona.setEdad(Integer.parseInt(txtEdad.getText()));
+        persona.setSexo(txtSexo.getText());
+        personas.AgregarPersonas(persona);
+        MostrarTablaPersona();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        ClsPersona personas = new ClsPersona();
+        Persona persona = new Persona();
+        persona.setIdPersona(Integer.parseInt(txtId.getText()));
+        personas.BorrarPersonas(persona);
+        MostrarTablaPersona();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        ClsPersona personas = new ClsPersona();
+        Persona persona = new Persona();
+        persona.setIdPersona(Integer.parseInt(txtId.getText()));
+        persona.setNombre(txtNombre.getText());
+        persona.setApellido(txtApellidos.getText());
+        persona.setEdad(Integer.parseInt(txtEdad.getText()));
+        persona.setSexo(txtSexo.getText());
+        personas.ActualizarPersonas(persona);
+        MostrarTablaPersona();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +313,7 @@ public class crudPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tb_Persona;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtId;
