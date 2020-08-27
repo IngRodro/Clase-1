@@ -52,7 +52,7 @@ public class crudPersona extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tbMostrar = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtId = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
@@ -174,7 +174,7 @@ public class crudPersona extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        jTabbedPane1.addTab("Operaciones de CRUD", jPanel1);
+        tbMostrar.addTab("Operaciones de CRUD", jPanel1);
 
         tb_Persona.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,6 +187,11 @@ public class crudPersona extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tb_Persona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_PersonaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb_Persona);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -206,7 +211,7 @@ public class crudPersona extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        jTabbedPane1.addTab("Mostrar Datos", jPanel2);
+        tbMostrar.addTab("Mostrar Datos", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,14 +219,14 @@ public class crudPersona extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(tbMostrar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(tbMostrar)
                 .addContainerGap())
         );
 
@@ -263,6 +268,23 @@ public class crudPersona extends javax.swing.JFrame {
         personas.ActualizarPersonas(persona);
         MostrarTablaPersona();
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tb_PersonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_PersonaMouseClicked
+      tbMostrar.setSelectedIndex(tbMostrar.indexOfComponent(jPanel1));
+      int fila = tb_Persona.getSelectedRow();
+      
+      String ID = String.valueOf(tb_Persona.getValueAt(fila, 0));
+      String nombre = String.valueOf(tb_Persona.getValueAt(fila, 1));
+      String apellido = String.valueOf(tb_Persona.getValueAt(fila, 2));
+      String edad = String.valueOf(tb_Persona.getValueAt(fila, 3));
+      String sexo = String.valueOf(tb_Persona.getValueAt(fila, 4));
+      
+      txtId.setText(ID);
+      txtNombre.setText(nombre);
+      txtApellidos.setText(apellido);
+      txtEdad.setText(edad);
+      txtSexo.setText(sexo);
+    }//GEN-LAST:event_tb_PersonaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -312,7 +334,7 @@ public class crudPersona extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tbMostrar;
     private javax.swing.JTable tb_Persona;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtEdad;
