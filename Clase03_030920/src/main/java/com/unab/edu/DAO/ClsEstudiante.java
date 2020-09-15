@@ -21,9 +21,10 @@ public class ClsEstudiante {
 
     public boolean LoguinEstudiante(String usuario, String Pass) {
         ArrayList<Estudiante> ListaUsuarios = new ArrayList<>();
-
+        ArrayList<Estudiante> ListarContra = new ArrayList<>();
         try {
             CallableStatement st = conexion.prepareCall("call SP_S_LOGUIESTUDIANTE(?,?)");
+
             st.setString("pusuario", usuario);
             st.setString("ppass", Pass);
             ResultSet rs = st.executeQuery();
@@ -31,25 +32,49 @@ public class ClsEstudiante {
                 Estudiante es = new Estudiante();
                 es.setUsu(rs.getNString("USU"));
                 es.setPass(rs.getNString("PASS"));
-
                 ListaUsuarios.add(es);
             }
             String usuariodebasedatos = null;
             String passdebasededatos = null;
-            for(var iterador:ListaUsuarios){
-            usuariodebasedatos = iterador.getUsu();
-            passdebasededatos = iterador.getPass();
+            for (var iterador : ListaUsuarios) {
+                usuariodebasedatos = iterador.getUsu();
+                passdebasededatos = iterador.getPass();
+
             }
-            if(usuariodebasedatos.equals(usuario) && passdebasededatos.equals(Pass)){
-            return true;
+
+            CallableStatement st2 = conexion.prepareCall("call SP_S_CRIP(?)");
+            st2.setString("PcripPass", Pass);
+            ResultSet rs2 = st2.executeQuery();
+            while (rs2.next()) {
+                Estudiante escrip = new Estudiante();
+
+                escrip.setPass(rs2.getNString("crip"));
+                ListarContra.add(escrip);
             }
-            else{}
+
+            String passcrip = null;
+            for (var iterador : ListarContra) {
+
+                passcrip = iterador.getPass();
+
+                Pass = passcrip;
+
+            }
+           
+            
+            if(usuariodebasedatos!=null &&passdebasededatos!=null ){
+            if (usuariodebasedatos.equals(usuario) && passdebasededatos.equals(Pass)) {
+                return true;
+            }
+            }
             conexion.close();
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(null, e);
         }
         return false;
     }
+
     public ArrayList<Estudiante> MostrarEstudiantes() {
         ArrayList<Estudiante> estudiantes = new ArrayList<>();
         try {

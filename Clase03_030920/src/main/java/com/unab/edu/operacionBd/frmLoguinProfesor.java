@@ -5,19 +5,19 @@
  */
 package com.unab.edu.operacionBd;
 
-import com.unab.edu.DAO.ClsEstudiante;
+import com.unab.edu.DAO.ClsProfesor;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
-public class frmLoguin extends javax.swing.JFrame {
+public class frmLoguinProfesor extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmLoguin
+     * Creates new form frmLoguinProfesor
      */
-    public frmLoguin() {
+    public frmLoguinProfesor() {
         initComponents();
     }
 
@@ -38,10 +38,13 @@ public class frmLoguin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Usuario");
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Contraseña");
 
+        btnEntrar.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,23 +59,23 @@ public class frmLoguin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(163, 163, 163)
+                        .addComponent(btnEntrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(txtPass)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(btnEntrar)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                            .addComponent(txtUser)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -80,7 +83,7 @@ public class frmLoguin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addComponent(btnEntrar)
                 .addGap(50, 50, 50))
         );
@@ -89,12 +92,12 @@ public class frmLoguin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        ClsEstudiante est = new ClsEstudiante();
+        ClsProfesor est = new ClsProfesor();
         String User = txtUser.getText();
         String Pass = txtPass.getText();
 
         if (!User.isEmpty() && !Pass.isEmpty()) {
-            var variablecontenedoradeconsultabd = est.LoguinEstudiante(User, Pass);
+            var variablecontenedoradeconsultabd = est.LoguinProfesor(User, Pass);
             if (variablecontenedoradeconsultabd == true) {
                 JOptionPane.showMessageDialog(null, "Welcome");
             } else {
@@ -103,7 +106,6 @@ public class frmLoguin extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Rellene los campos");
         }
-
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -124,20 +126,20 @@ public class frmLoguin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLoguin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLoguinProfesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmLoguin().setVisible(true);
+                new frmLoguinProfesor().setVisible(true);
             }
         });
     }
