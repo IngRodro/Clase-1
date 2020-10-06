@@ -8,6 +8,7 @@ package com.unab.edu.DAO;
 import com.unab.edu.Entidades.Persona;
 import com.unab.edu.conexionmysql.ConexionBD;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -19,7 +20,7 @@ public class ClsPersona {
 
     ConexionBD claseConectar = new ConexionBD();
     Connection conectar = claseConectar.retornarConexion();
-
+    
     public ArrayList<Persona> MostrarPersona() {
         ArrayList<Persona> Personas = new ArrayList<>();
         try {
@@ -32,6 +33,7 @@ public class ClsPersona {
                 persona.setApellido(resultadodeConsulta.getString("Apellido"));
                 persona.setEdad(resultadodeConsulta.getInt("Edad"));
                 persona.setSexo(resultadodeConsulta.getString("Sexo"));
+                persona.setFecha(resultadodeConsulta.getDate("Fecha"));
                 Personas.add(persona);
             }
             conectar.close();
@@ -43,11 +45,12 @@ public class ClsPersona {
 
     public void AgregarPersonas(Persona per) {
         try {
-            CallableStatement Statement = conectar.prepareCall("call SP_I_Persona(?,?,?,?)");
+            CallableStatement Statement = conectar.prepareCall("call SP_I_Persona(?,?,?,?,?)");
             Statement.setString("PNombre", per.getNombre());
             Statement.setString("PApellido", per.getApellido());
             Statement.setInt("PEdad", per.getEdad());
             Statement.setString("PSexo", per.getSexo());
+            Statement.setDate("pFecha", new java.sql.Date(per.getFecha().getTime()));
             Statement.execute();
             JOptionPane.showMessageDialog(null, "Persona Guardada");
             conectar.close();
@@ -72,12 +75,13 @@ public class ClsPersona {
     
      public void ActualizarPersonas(Persona per) {
         try {
-            CallableStatement Statement = conectar.prepareCall("call SP_U_Persona(?,?,?,?,?)");
+            CallableStatement Statement = conectar.prepareCall("call SP_U_Persona(?,?,?,?,?,?)");
             Statement.setInt("PIdPersona", per.getIdPersona());
             Statement.setString("PNombre", per.getNombre());
             Statement.setString("PApellido", per.getApellido());
             Statement.setInt("PEdad", per.getEdad());
             Statement.setString("PSexo", per.getSexo());
+            Statement.setDate("pFecha", new java.sql.Date(per.getFecha().getTime()));
             Statement.execute();
             JOptionPane.showMessageDialog(null, "Persona Actualizada");
             conectar.close();

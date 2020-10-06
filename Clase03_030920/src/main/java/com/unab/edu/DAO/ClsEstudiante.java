@@ -24,7 +24,6 @@ public class ClsEstudiante {
         ArrayList<Estudiante> ListarContra = new ArrayList<>();
         try {
             CallableStatement st = conexion.prepareCall("call SP_S_LOGUIESTUDIANTE(?,?)");
-
             st.setString("pusuario", usuario);
             st.setString("ppass", Pass);
             ResultSet rs = st.executeQuery();
